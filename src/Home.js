@@ -2,22 +2,37 @@ import {useState} from 'react';
 
 const Home = () => {
 
-    //let nombre = "Mario BROS";
-
-    const [nombre, setNombre] = useState("Mario BROS");
-    const [edad, setEdad] = useState(35)
-
-    const handleClick = (e) => {
-        setNombre("Luigi BROS")
-        setEdad(37)
-    }
+    const [posts, setPosts] = useState([
+      {
+        titulo: "Mi primer posteo",
+        body: "Lorem ipsum...",
+        autor: "Mario BROS",
+        id: 1,
+      },
+      {
+        titulo: "Mi segundo posteo",
+        body: "Lorem ipsum...",
+        autor: "Luigi BROS",
+        id: 2,
+      },
+      {
+        titulo: "Mi tercer posteo",
+        body: "Lorem ipsum...",
+        autor: "Yoshi BROS",
+        id: 3,
+      },
+    ]);
 
     return (
         <div className="home">
             <h2>Homepage</h2>
-            <br/>
-            <p>{nombre} tiene {edad} años</p>
-            <button onClick={handleClick}>Hacer clic</button>
+            {posts.map((post) => (
+                <div className="blog-preview" key={post.id}>
+                    <h2>{post.titulo}</h2>
+                    <p>Escrito por {post.autor}</p>
+                    <hr/>
+                </div>
+            ))}
         </div>
     );
 }
