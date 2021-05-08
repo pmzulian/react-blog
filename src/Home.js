@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import PostList from './PostList';
 
 const Home = () => {
@@ -30,11 +30,37 @@ const Home = () => {
       }
     ]);
 
+    const [nombre, setNombre] = useState("Princesa Peach");
+
+    //Función handleDelete() para pasarla como propiedad al hijo
+    const handleDelete = (id) => {
+      const nuevosPosteos = posts.filter(post => post.id !== id);
+      setPosts(nuevosPosteos);
+    }
+
+    /**
+     * Usamos el Hook useEffect.
+     * Se usa directamente con un argumento, sin almacenar en constante.
+     */
+    useEffect(() => {
+      console.log("Usando Hook useEffect");
+      console.log(posts);
+    }, [nombre]);
+
     return (
       <div className="home">
         <h2>Homepage</h2>
-        <PostList posts={posts} titulo="De todos los autores"/>
-        <PostList posts={posts.filter((post) => (post.autor === "Mario BROS"))} titulo="Solo de Mario BROS"/>
+        <br />
+        
+        <p>{nombre}</p>
+        <button onClick={() => setNombre("Champiñón Toad")}>Cambiar nombre</button>
+        <hr/>
+
+        <PostList
+          posts={posts}
+          titulo="De todos los autores"
+          handleDelete={handleDelete}
+        />
       </div>
     );
 }
